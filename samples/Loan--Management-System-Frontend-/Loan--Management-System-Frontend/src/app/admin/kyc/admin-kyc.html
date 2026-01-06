@@ -6,33 +6,38 @@
     Loading KYC requests...
   </div>
 
-  <!-- TABLE -->
-  <table *ngIf="!loading && kycs.length">
-    <thead>
-      <tr>
-        <th>Customer ID</th>
-        <th>Type</th>
-        <th>Document No</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
+  <!-- KYC CARDS -->
+  <div class="kyc-list" *ngIf="!loading && kycs.length">
 
-    <tbody>
-      <tr *ngFor="let kyc of kycs">
-        <td>{{ kyc.customerId }}</td>
-        <td>{{ kyc.type }}</td>
-        <td>{{ kyc.documentNumber }}</td>
+    <div
+      class="kyc-card"
+      *ngFor="let kyc of kycs"
+      [ngClass]="kyc.status.toLowerCase()"
+    >
 
-        <td>
-          <span class="status" [ngClass]="kyc.status.toLowerCase()">
+      <!-- LEFT INFO -->
+      <div class="kyc-left">
+        <h4>Customer ID</h4>
+        <p class="customer-id">{{ kyc.customerId }}</p>
+
+        <p class="type">Type: {{ kyc.type }}</p>
+        <span class="doc">Document No: {{ kyc.documentNumber }}</span>
+      </div>
+
+      <!-- RIGHT INFO -->
+      <div class="kyc-right">
+
+        <div class="kyc-status">
+          <span class="label">KYC</span>
+          <span class="status-badge" [ngClass]="kyc.status.toLowerCase()">
             {{ kyc.status }}
           </span>
-        </td>
+        </div>
 
-        <td>
-          <!-- PENDING ACTIONS -->
+        <!-- ACTIONS -->
+        <div class="actions">
           <ng-container *ngIf="kyc.status === 'PENDING'; else completed">
+
             <input
               type="text"
               placeholder="Remarks"
@@ -40,29 +45,24 @@
               [ngModelOptions]="{ standalone: true }"
             />
 
-            <button
-              class="approve"
-              (click)="approve(kyc.id)"
-            >
+            <button class="approve" (click)="approve(kyc.id)">
               Approve
             </button>
 
-            <button
-              class="reject"
-              (click)="reject(kyc.id)"
-            >
+            <button class="reject" (click)="reject(kyc.id)">
               Reject
             </button>
+
           </ng-container>
 
-          <!-- DONE -->
           <ng-template #completed>
             <span class="done">✔ Completed</span>
           </ng-template>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- EMPTY STATE -->
   <p *ngIf="!loading && !kycs.length" class="empty">

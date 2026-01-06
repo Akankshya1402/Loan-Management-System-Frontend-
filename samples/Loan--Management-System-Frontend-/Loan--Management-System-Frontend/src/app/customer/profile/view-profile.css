@@ -1,26 +1,159 @@
-.profile-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
-  max-width: 600px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+/* ===============================
+   PAGE WRAPPER
+================================ */
+.section {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.section h2 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 26px;
+  letter-spacing: -0.4px;
+}
+
+/* ===============================
+   PROFILE CARD (GLASS + PREMIUM)
+================================ */
+.profile-card {
+  width: 100%;
+  max-width: 680px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(248, 250, 252, 0.95)
+  );
+  backdrop-filter: blur(14px);
+  border-radius: 24px;
+  padding: 34px 36px;
+  box-shadow:
+    0 40px 80px rgba(15, 23, 42, 0.12),
+    0 20px 40px rgba(37, 99, 235, 0.18);
+  position: relative;
+  animation: profileFade 0.6s ease;
+}
+
+/* Gradient top highlight */
+.profile-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 7px;
+  width: 100%;
+  border-radius: 24px 24px 0 0;
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #3b82f6,
+    #6366f1
+  );
+}
+
+/* ===============================
+   ROW DESIGN
+================================ */
 .row {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid #e5e7eb;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px dashed #e5e7eb;
 }
 
 .row:last-child {
   border-bottom: none;
 }
 
-span {
-  color: #6b7280;
+/* Label */
+.row span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-strong {
-  color: #111827;
+/* Value */
+.row strong {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* ===============================
+   STATUS STYLES
+================================ */
+.row strong[data-status="ACTIVE"] {
+  color: #16a34a;
+}
+
+.row strong[data-status="PENDING"] {
+  color: #ca8a04;
+}
+
+.row strong[data-status="REJECTED"],
+.row strong[data-status="INACTIVE"] {
+  color: #dc2626;
+}
+
+/* ===============================
+   LOADING / ERROR
+================================ */
+.section > div {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.error {
+  color: #dc2626;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   SUBTLE HOVER EFFECT
+================================ */
+.profile-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+/* ===============================
+   ENTRY ANIMATION
+================================ */
+@keyframes profileFade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   MOBILE POLISH
+================================ */
+@media (max-width: 640px) {
+  .profile-card {
+    padding: 26px 22px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .row strong {
+    font-size: 15px;
+  }
+
+  .section h2 {
+    font-size: 22px;
+  }
 }

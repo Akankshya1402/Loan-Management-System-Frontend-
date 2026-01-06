@@ -4,8 +4,9 @@
   height: 100vh;
   font-family: "Segoe UI", sans-serif;
 }
-.brand{
-    padding-bottom: 40px;
+
+.brand {
+  padding-bottom: 40px;
 }
 
 /* ====== SIDEBAR ====== */
@@ -27,11 +28,11 @@
   padding-left: 8px;
 }
 
-/* NAV */
+/* ====== NAV ====== */
 nav {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 14px; /* ✅ MORE SPACE BETWEEN BUTTONS */
 }
 
 nav a {
@@ -50,6 +51,7 @@ nav a {
 nav a.active {
   background: #2563eb;
   color: #ffffff;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
 }
 
 nav a:hover {
@@ -57,7 +59,17 @@ nav a:hover {
   color: #ffffff;
 }
 
-/* LOGOUT (BOTTOM) */
+/* SPECIAL KYC LINK */
+.kyc-link {
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.kyc-link.active {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ffffff;
+}
+
+/* ====== LOGOUT (BOTTOM) ====== */
 .sidebar .logout {
   margin-top: auto;
   padding: 14px 16px;
@@ -145,15 +157,8 @@ main {
   padding: 30px;
   overflow-y: auto;
 }
-.kyc-link {
-  border: 1px dashed rgba(255, 255, 255, 0.3);
-  margin-top: 10px;
-}
 
-.kyc-link.active {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #fff;
-}
+/* ROLE LABEL */
 .role {
   display: block;
   font-size: 12px;

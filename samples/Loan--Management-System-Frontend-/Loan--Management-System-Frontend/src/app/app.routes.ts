@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password';
 import { LoanDetailsComponent } from './customer/loan-details/loan-details';
+import { HomeComponent } from './pages/home/home';
 
 // =======================
 // CUSTOMER
@@ -24,7 +25,10 @@ export const routes: Routes = [
   // =======================
   // PUBLIC ROUTES
   // =======================
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+  // ✅ HOME PAGE
+  { path: 'home', component: HomeComponent },
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -59,10 +63,12 @@ export const routes: Routes = [
           import('./customer/apply-loan/apply-loan')
             .then(m => m.ApplyLoanComponent)
       },
+
       {
-      path: 'loan-details/:loanId',
-      component: LoanDetailsComponent
+        path: 'loan-details/:loanId',
+        component: LoanDetailsComponent
       },
+
       {
         path: 'my-loans',
         loadComponent: () =>
@@ -127,12 +133,14 @@ export const routes: Routes = [
           import('./admin/customers/admin-customers')
             .then(m => m.AdminCustomersComponent)
       },
+
       {
         path: 'loans',
         loadComponent: () =>
-        import('./admin/loans/admin-loans')
-          .then(m => m.AdminLoansComponent)
+          import('./admin/loans/admin-loans')
+            .then(m => m.AdminLoansComponent)
       },
+
       {
         path: '',
         redirectTo: 'dashboard',
@@ -144,5 +152,5 @@ export const routes: Routes = [
   // =======================
   // FALLBACK
   // =======================
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'home' }
 ];

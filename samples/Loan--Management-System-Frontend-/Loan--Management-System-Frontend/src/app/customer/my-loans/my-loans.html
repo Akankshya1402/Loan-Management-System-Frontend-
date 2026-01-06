@@ -20,10 +20,19 @@
       <tr *ngFor="let loan of loans"
           (click)="openLoan(loan)"
           [class.active]="loan === selectedLoan">
+
         <td>{{ getLoanTypeLabel(loan.loanType) }}</td>
+
         <td>₹ {{ loan.principal | number:'1.0-0' }}</td>
+
         <td>{{ loan.tenureMonths }}</td>
-        <td>{{ loan.status }}</td>
+
+        <td>
+          <span class="status {{ loan.status }}">
+            {{ loan.status }}
+          </span>
+        </td>
+
         <td>{{ loan.disbursedAt | date:'mediumDate' }}</td>
       </tr>
     </tbody>
@@ -31,7 +40,7 @@
 
 </div>
 
-<!-- ✅ EMI DETAILS LOAD BELOW -->
+<!-- EMI DETAILS BELOW -->
 <app-loan-details
   *ngIf="selectedLoan"
   [loan]="selectedLoan">

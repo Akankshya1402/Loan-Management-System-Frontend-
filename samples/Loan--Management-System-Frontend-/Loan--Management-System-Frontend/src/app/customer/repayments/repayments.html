@@ -2,26 +2,39 @@
 
   <h2>Repayments</h2>
 
+  <!-- LOADING -->
   <div *ngIf="loading" class="info">
     Loading EMI schedule...
   </div>
 
+  <!-- ERROR -->
   <div *ngIf="error" class="error">
     {{ error }}
   </div>
 
-  <!-- Loan Summary -->
+  <!-- LOAN SUMMARY -->
   <div class="card" *ngIf="activeLoan">
     <h3>{{ activeLoan.loanType }} Loan</h3>
 
     <div class="grid">
-      <p><strong>Principal:</strong> ₹ {{ activeLoan.principal | number:'1.0-0' }}</p>
-      <p><strong>Tenure:</strong> {{ activeLoan.tenureMonths }} months</p>
-      <p><strong>Status:</strong> {{ activeLoan.status }}</p>
+      <p>
+        <strong>Principal:</strong>
+        ₹ {{ activeLoan.principal | number:'1.0-0' }}
+      </p>
+
+      <p>
+        <strong>Tenure:</strong>
+        {{ activeLoan.tenureMonths }} months
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        {{ activeLoan.status }}
+      </p>
     </div>
   </div>
 
-  <!-- EMI Table -->
+  <!-- EMI TABLE -->
   <table *ngIf="emis.length">
     <thead>
       <tr>
@@ -35,27 +48,54 @@
 
     <tbody>
       <tr *ngFor="let emi of emis">
+
         <td>{{ emi.emiNumber }}</td>
+
         <td>{{ emi.dueDate | date:'mediumDate' }}</td>
-        <td>₹ {{ emi.emiAmount | number:'1.0-0' }}</td>
+
         <td>
-          <span class="status" [ngClass]="emi.status.toLowerCase()">
+          ₹ {{ emi.emiAmount | number:'1.0-0' }}
+        </td>
+
+        <!-- STATUS -->
+        <td>
+          <span
+            class="status"
+            [ngClass]="emi.status.toLowerCase()"
+          >
             {{ emi.status }}
           </span>
         </td>
+
+        <!-- ACTION -->
         <td>
+
+          <!-- ✅ ONLY NEXT UNPAID EMI -->
           <button
-  *ngIf="emi.status !== 'PAID'"
-  class="pay-btn"
-  (click)="payEmi(emi)"
->
-  Pay Now
-</button>
+            *ngIf="canPayEmi(emi)"
+            class="pay-btn"
+            (click)="payEmi(emi)"
+            
+          >
+            {{ payingEmiNumber === emi.emiNumber ? 'Paying...' : 'Pay Now' }}
+          </button>
 
-
-          <span *ngIf="emi.status === 'PAID'" class="paid-label">
+          <!-- ✅ PAID -->
+          <span
+            *ngIf="emi.status === 'PAID'"
+            class="paid-label"
+          >
             Paid
           </span>
+
+          <!-- ✅ FUTURE EMIs -->
+          <span
+            *ngIf="emi.status !== 'PAID' && !canPayEmi(emi)"
+            class="info"
+          >
+            —
+          </span>
+
         </td>
       </tr>
     </tbody>

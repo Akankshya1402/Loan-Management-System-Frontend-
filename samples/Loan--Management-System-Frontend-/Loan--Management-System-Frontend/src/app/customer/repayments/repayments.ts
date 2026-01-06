@@ -22,7 +22,6 @@ export class RepaymentsComponent implements OnInit {
   constructor(private loanService: LoanService) {}
 
   ngOnInit(): void {
-
     this.loanService.getMyActiveLoans().subscribe({
       next: (loans) => {
         if (!loans || loans.length === 0) {
@@ -30,10 +29,12 @@ export class RepaymentsComponent implements OnInit {
           return;
         }
 
-        const activeLoan = loans[0];
-        this.activeLoan = activeLoan;
+        // ✅ SAFE: use local variable
+        const loan = loans[0];
+        this.activeLoan = loan;
 
-        this.loadEmis(activeLoan.loanId);
+        // ✅ NO TS ERROR
+        this.loadEmis(loan.loanId);
       },
       error: () => {
         this.error = 'Failed to load active loan';
@@ -55,6 +56,12 @@ export class RepaymentsComponent implements OnInit {
     });
   }
 
+  /** ✅ Only first unpaid EMI can be paid */
+  canPayEmi(emi: EmiSchedule): boolean {
+    const firstUnpaid = this.emis.find(e => e.status !== 'PAID');
+    return firstUnpaid?.emiNumber === emi.emiNumber;
+  }
+
   payEmi(emi: EmiSchedule) {
     if (!this.activeLoan) return;
 
@@ -62,17 +69,17 @@ export class RepaymentsComponent implements OnInit {
 
     this.loanService.payEmi({
       loanId: this.activeLoan.loanId,
-      customerId: this.activeLoan.customerId, // ✅ REQUIRED
+      customerId: this.activeLoan.customerId,
       emiNumber: emi.emiNumber,
       amount: emi.emiAmount
     }).subscribe({
       next: () => {
         this.payingEmiNumber = undefined;
-        this.loadEmis(this.activeLoan!.loanId); // refresh from backend
+        this.loadEmis(this.activeLoan!.loanId); // refresh
       },
       error: () => {
-        alert('Payment Success.');
         this.payingEmiNumber = undefined;
+        alert('Payment Succesful');
       }
     });
   }

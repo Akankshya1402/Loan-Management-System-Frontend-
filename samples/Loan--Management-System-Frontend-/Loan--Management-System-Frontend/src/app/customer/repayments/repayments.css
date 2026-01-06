@@ -1,84 +1,221 @@
+/* ===============================
+   REPAYMENTS SECTION
+================================ */
 .section {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+  padding: 26px 28px 30px;
+  border-radius: 20px;
+  box-shadow:
+    0 20px 40px rgba(15, 23, 42, 0.06),
+    0 10px 20px rgba(37, 99, 235, 0.08);
+  position: relative;
 }
 
+/* Accent strip */
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(90deg, #2563eb, #3b82f6, #6366f1);
+}
+
+/* ===============================
+   HEADINGS
+================================ */
+.section h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 22px;
+}
+
+.section h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 14px;
+}
+
+/* ===============================
+   INFO / ERROR
+================================ */
+.info {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.error {
+  font-size: 14px;
+  font-weight: 700;
+  color: #dc2626;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   LOAN SUMMARY CARD
+================================ */
 .card {
-  background: #f9fafb;
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  padding: 20px 22px;
+  border-radius: 18px;
+  margin-bottom: 24px;
+  box-shadow:
+    0 12px 28px rgba(37, 99, 235, 0.14),
+    0 6px 16px rgba(15, 23, 42, 0.08);
 }
 
+/* SUMMARY GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
 }
 
+.grid p {
+  background: #ffffff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+}
+
+/* ===============================
+   EMI TABLE
+================================ */
 table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 10px;
 }
 
-thead {
+/* TABLE HEADER */
+thead th {
   background: #f1f5f9;
+  padding: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #475569;
 }
 
-th, td {
-  padding: 12px;
-  border-bottom: 1px solid #e5e7eb;
+thead th:first-child {
+  border-radius: 12px 0 0 12px;
+}
+
+thead th:last-child {
+  border-radius: 0 12px 12px 0;
+}
+
+/* TABLE ROWS */
+tbody tr {
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+  transition: all 0.25s ease;
+}
+
+tbody tr:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.18);
+}
+
+/* TABLE CELLS */
+td {
+  padding: 14px;
   font-size: 14px;
+  color: #0f172a;
 }
 
+td:first-child {
+  font-weight: 700;
+  border-radius: 14px 0 0 14px;
+}
+
+td:last-child {
+  border-radius: 0 14px 14px 0;
+}
+
+/* ===============================
+   EMI STATUS BADGES
+================================ */
 .status {
-  padding: 4px 10px;
-  border-radius: 10px;
+  padding: 6px 14px;
+  border-radius: 999px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 800;
+  display: inline-block;
 }
 
+/* Pending */
 .status.pending {
-  background: #fef3c7;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
   color: #92400e;
 }
 
+/* Paid */
 .status.paid {
-  background: #dcfce7;
-  color: #166534;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ffffff;
 }
 
+/* Overdue */
 .status.overdue {
-  background: #fee2e2;
-  color: #991b1b;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #ffffff;
 }
 
+/* ===============================
+   PAY BUTTON
+================================ */
 .pay-btn {
-  background: #2563eb;
-  color: white;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #ffffff;
   border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
   cursor: pointer;
-  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.pay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45);
 }
 
 .pay-btn:disabled {
   background: #94a3b8;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* Paid label */
 .paid-label {
+  font-size: 13px;
+  font-weight: 800;
   color: #16a34a;
-  font-weight: 600;
 }
 
-.info {
-  color: #64748b;
-}
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 768px) {
+  .section {
+    padding: 20px;
+  }
 
-.error {
-  color: #dc2626;
-  font-weight: 600;
+  th, td {
+    padding: 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

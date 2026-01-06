@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AdminKycService {
 
-  private BASE_URL = 'http://localhost:9090/api/admin/customers/kyc';
+  private BASE_URL = 'http://localhost:9090/api/admin/kyc';
 
   constructor(private http: HttpClient) {}
 
