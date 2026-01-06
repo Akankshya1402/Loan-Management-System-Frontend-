@@ -1,0 +1,71 @@
+<div class="section">
+  <h2>KYC Requests</h2>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading">
+    Loading KYC requests...
+  </div>
+
+  <!-- TABLE -->
+  <table *ngIf="!loading && kycs.length">
+    <thead>
+      <tr>
+        <th>Customer ID</th>
+        <th>Type</th>
+        <th>Document No</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let kyc of kycs">
+        <td>{{ kyc.customerId }}</td>
+        <td>{{ kyc.type }}</td>
+        <td>{{ kyc.documentNumber }}</td>
+
+        <td>
+          <span class="status" [ngClass]="kyc.status.toLowerCase()">
+            {{ kyc.status }}
+          </span>
+        </td>
+
+        <td>
+          <!-- PENDING ACTIONS -->
+          <ng-container *ngIf="kyc.status === 'PENDING'; else completed">
+            <input
+              type="text"
+              placeholder="Remarks"
+              [(ngModel)]="remarks[kyc.id]"
+              [ngModelOptions]="{ standalone: true }"
+            />
+
+            <button
+              class="approve"
+              (click)="approve(kyc.id)"
+            >
+              Approve
+            </button>
+
+            <button
+              class="reject"
+              (click)="reject(kyc.id)"
+            >
+              Reject
+            </button>
+          </ng-container>
+
+          <!-- DONE -->
+          <ng-template #completed>
+            <span class="done">✔ Completed</span>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- EMPTY STATE -->
+  <p *ngIf="!loading && !kycs.length" class="empty">
+    No KYC requests found
+  </p>
+</div>

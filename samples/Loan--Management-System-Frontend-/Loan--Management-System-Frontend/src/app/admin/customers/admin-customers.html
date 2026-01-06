@@ -1,0 +1,49 @@
+<div class="section">
+  <h2>All Customers</h2>
+
+  <div *ngIf="loading">Loading customers...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- ✅ CUSTOMER CARDS -->
+  <div class="customer-list" *ngIf="!loading && customers.length">
+
+    <div class="customer-card"
+     *ngFor="let c of customers"
+     [ngClass]="c.kycStatus.toLowerCase()">
+
+
+      <div class="customer-main">
+        <p class="name">{{ c.fullName }}</p>
+        <p class="email">{{ c.email }}</p>
+        <p class="id">ID: {{ c.customerId }}</p>
+      </div>
+
+      <div class="customer-meta">
+        <div>
+          <small>Mobile</small>
+          <p>{{ c.mobile }}</p>
+        </div>
+
+        <div>
+          <small>KYC</small>
+          <span class="status" [ngClass]="c.kycStatus.toLowerCase()">
+            {{ c.kycStatus }}
+          </span>
+        </div>
+
+        <div>
+          <small>Account</small>
+          <span class="status" [ngClass]="c.accountStatus.toLowerCase()">
+            {{ c.accountStatus }}
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <p *ngIf="!loading && !customers.length">
+    No customers found
+  </p>
+</div>

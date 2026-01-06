@@ -1,0 +1,35 @@
+<div class="section">
+
+  <h3>Loan Details</h3>
+
+  <div class="card">
+    <h3>{{ loan.loanType }} Loan</h3>
+
+    <div class="grid">
+      <p><strong>Principal:</strong> ₹ {{ loan.principal | number:'1.0-0' }}</p>
+      <p><strong>Tenure:</strong> {{ loan.tenureMonths }} months</p>
+      <p><strong>Status:</strong> {{ loan.status }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="info">
+    Loading EMI details…
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div class="card" *ngIf="emiOverview">
+    <h3>EMI Overview</h3>
+
+    <div class="grid">
+      <p><strong>EMI Amount:</strong> ₹ {{ emiOverview.emiAmount }}</p>
+      <p><strong>Outstanding:</strong> ₹ {{ emiOverview.outstandingAmount }}</p>
+      <p><strong>Paid:</strong> {{ emiOverview.paidEmis }}</p>
+      <p><strong>Pending:</strong> {{ emiOverview.pendingEmis }}</p>
+      <p><strong>Overdue:</strong> {{ emiOverview.overdueEmis }}</p>
+    </div>
+  </div>
+
+</div>

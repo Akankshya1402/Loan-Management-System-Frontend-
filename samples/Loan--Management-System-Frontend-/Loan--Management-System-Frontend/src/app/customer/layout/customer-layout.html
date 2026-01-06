@@ -1,0 +1,88 @@
+<div class="layout">
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+  <div class="brand">
+    <h2>LoanHub</h2>
+  </div>
+
+  <nav class="menu">
+  <a routerLink="/customer/dashboard" routerLinkActive="active">
+    <i class="fa-solid fa-house"></i>
+    <span>Dashboard</span>
+  </a>
+
+  <a routerLink="/customer/apply-loan" routerLinkActive="active">
+    <i class="fa-solid fa-file-signature"></i>
+    <span>Apply Loan</span>
+  </a>
+
+  <a routerLink="/customer/my-loans" routerLinkActive="active">
+    <i class="fa-solid fa-credit-card"></i>
+    <span>My Loans</span>
+  </a>
+
+  <a routerLink="/customer/repayments" routerLinkActive="active">
+    <i class="fa-solid fa-indian-rupee-sign"></i>
+    <span>Repayments</span>
+  </a>
+
+  <a routerLink="/customer/profile" routerLinkActive="active">
+    <i class="fa-solid fa-user"></i>
+    <span>Profile</span>
+  </a>
+
+  <!-- ✅ NEW KYC BUTTON -->
+  <a routerLink="/customer/kyc" routerLinkActive="active" class="kyc-link">
+    <i class="fa-solid fa-id-card"></i>
+    <span>KYC Verification</span>
+  </a>
+</nav>
+
+
+  <div class="logout">
+  <a (click)="logout()">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    <span>Logout</span>
+  </a>
+</div>
+
+</aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <!-- TOP HEADER -->
+    <header class="topbar">
+      <div class="welcome">
+        <h2>Dashboard</h2>
+        <p>
+          Welcome back,
+          <strong>{{ username || 'User' }}</strong>
+        </p>
+      </div>
+
+      <div class="actions">
+        <button class="icon-btn" title="Notifications">🔔</button>
+        <button class="icon-btn" title="Settings">⚙️</button>
+
+        <div class="profile">
+          <div class="avatar">
+            {{ username ? (username[0] | uppercase) : '?' }}
+          </div>
+        </div>
+
+        <!-- Optional logout -->
+        <!--
+        <button class="logout-btn" (click)="logout()">
+          Logout
+        </button>
+        -->
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,49 @@
+<div class="section">
+
+  <h2>Loan Applications</h2>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table *ngIf="!loading && loans.length">
+    <thead>
+      <tr>
+        <th>Application ID</th>
+        <th>Customer</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Tenure</th>
+        <th>Status</th>
+        <th>Applied At</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let loan of loans">
+        <!-- ✅ Mongo ObjectId -->
+        <td>{{ loan._id }}</td>
+
+        <td>{{ loan.customerId }}</td>
+        <td>{{ loan.loanType }}</td>
+
+        <td>₹ {{ loan.loanAmount }}</td>
+
+        <td>{{ loan.tenureMonths }} months</td>
+
+        <td>
+          <span class="status" [ngClass]="loan.status.toLowerCase()">
+            {{ loan.status }}
+          </span>
+        </td>
+
+        <!-- ✅ Mongo createdAt -->
+        <td>{{ loan.createdAt | date:'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && !loans.length">
+    No loan applications found
+  </p>
+
+</div>

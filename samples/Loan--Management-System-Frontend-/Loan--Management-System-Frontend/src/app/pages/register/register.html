@@ -1,0 +1,97 @@
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="handleRegister()">
+
+    <h1>Create Account</h1>
+
+    <!-- EMAIL -->
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Email"
+    />
+    <div class="error"
+      *ngIf="
+        registerForm.get('email')?.touched &&
+        registerForm.get('email')?.hasError('required')
+      ">
+      Email is required
+    </div>
+    <div class="error"
+      *ngIf="
+        registerForm.get('email')?.touched &&
+        registerForm.get('email')?.hasError('email')
+      ">
+      Enter a valid email address
+    </div>
+
+    <!-- USERNAME -->
+    <input
+      type="text"
+      formControlName="username"
+      placeholder="Username"
+    />
+    <div class="error"
+      *ngIf="
+        registerForm.get('username')?.touched &&
+        registerForm.get('username')?.hasError('required')
+      ">
+      Username is required
+    </div>
+    <div class="error"
+      *ngIf="
+        registerForm.get('username')?.touched &&
+        registerForm.get('username')?.hasError('minlength')
+      ">
+      Username must be at least 4 characters
+    </div>
+    <div class="error"
+      *ngIf="
+        registerForm.get('username')?.touched &&
+        registerForm.get('username')?.hasError('pattern')
+      ">
+      Only letters, numbers, and underscore (_) are allowed
+    </div>
+
+    <!-- PASSWORD -->
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Password"
+    />
+    <div class="error"
+      *ngIf="
+        registerForm.get('password')?.touched &&
+        registerForm.get('password')?.hasError('required')
+      ">
+      Password is required
+    </div>
+    <div class="error"
+      *ngIf="
+        registerForm.get('password')?.touched &&
+        registerForm.get('password')?.hasError('minlength')
+      ">
+      Password must be at least 8 characters
+    </div>
+    <div class="error"
+      *ngIf="
+        registerForm.get('password')?.touched &&
+        registerForm.get('password')?.hasError('pattern')
+      ">
+      Must contain uppercase, lowercase, number & special character
+    </div>
+
+    <!-- SUBMIT -->
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid || isSubmitting">
+      Register
+    </button>
+
+    <!-- FOOTER -->
+    <p>
+      Already have an account?
+      <a (click)="goToLogin()">Login</a>
+    </p>
+
+  </form>
+</div>

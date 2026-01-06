@@ -1,0 +1,43 @@
+<div class="section">
+  <h2>My Profile</h2>
+
+  <div *ngIf="loading">Loading profile...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="profile" class="profile-card">
+    <div class="row">
+      <span>Full Name</span>
+      <strong>{{ profile.fullName }}</strong>
+    </div>
+
+    <div class="row">
+      <span>Email</span>
+      <strong>{{ profile.email }}</strong>
+    </div>
+
+    <div class="row">
+      <span>Mobile</span>
+      <strong>{{ profile.mobile }}</strong>
+    </div>
+
+    <div class="row">
+      <span>Monthly Income</span>
+      <strong>₹ {{ profile.monthlyIncome }}</strong>
+    </div>
+
+    <div class="row">
+      <span>Credit Score</span>
+      <strong>{{ profile.creditScore }}</strong>
+    </div>
+
+    <div class="row">
+      <span>KYC Status</span>
+      <strong>{{ profile.kycStatus }}</strong>
+    </div>
+
+    <div class="row">
+      <span>Account Status</span>
+      <strong>{{ profile.accountStatus }}</strong>
+    </div>
+  </div>
+</div>

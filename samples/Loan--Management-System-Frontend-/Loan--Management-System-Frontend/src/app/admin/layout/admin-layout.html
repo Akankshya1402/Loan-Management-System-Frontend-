@@ -1,0 +1,75 @@
+<div class="layout">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <h2>LoanHub</h2>
+      <span class="role">ADMIN</span>
+    </div>
+
+    <nav class="menu">
+
+      <a routerLink="/admin/dashboard" routerLinkActive="active">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a routerLink="/admin/kyc" routerLinkActive="active">
+        <i class="fa-solid fa-id-card"></i>
+        <span>KYC Verification</span>
+      </a>
+
+      <a routerLink="/admin/customers" routerLinkActive="active">
+        <i class="fa-solid fa-users"></i>
+        <span>Customers</span>
+      </a>
+
+      <a routerLink="/admin/loans" routerLinkActive="active">
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+        <span>Loans</span>
+      </a>
+
+    </nav>
+
+    <div class="logout">
+      <a (click)="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- TOP HEADER -->
+    <header class="topbar">
+      <div class="welcome">
+        <h2>Admin Panel</h2>
+        <p>
+          Welcome,
+          <strong>{{ username || 'Admin' }}</strong>
+        </p>
+      </div>
+
+      <div class="actions">
+        <button class="icon-btn">🔔</button>
+        <button class="icon-btn">⚙️</button>
+
+        <div class="profile">
+          <div class="avatar">
+            {{ username ? (username[0] | uppercase) : 'A' }}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+
+  </main>
+</div>

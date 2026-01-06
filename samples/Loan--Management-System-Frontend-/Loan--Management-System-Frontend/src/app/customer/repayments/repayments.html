@@ -1,0 +1,64 @@
+<div class="section">
+
+  <h2>Repayments</h2>
+
+  <div *ngIf="loading" class="info">
+    Loading EMI schedule...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <!-- Loan Summary -->
+  <div class="card" *ngIf="activeLoan">
+    <h3>{{ activeLoan.loanType }} Loan</h3>
+
+    <div class="grid">
+      <p><strong>Principal:</strong> ₹ {{ activeLoan.principal | number:'1.0-0' }}</p>
+      <p><strong>Tenure:</strong> {{ activeLoan.tenureMonths }} months</p>
+      <p><strong>Status:</strong> {{ activeLoan.status }}</p>
+    </div>
+  </div>
+
+  <!-- EMI Table -->
+  <table *ngIf="emis.length">
+    <thead>
+      <tr>
+        <th>EMI #</th>
+        <th>Due Date</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let emi of emis">
+        <td>{{ emi.emiNumber }}</td>
+        <td>{{ emi.dueDate | date:'mediumDate' }}</td>
+        <td>₹ {{ emi.emiAmount | number:'1.0-0' }}</td>
+        <td>
+          <span class="status" [ngClass]="emi.status.toLowerCase()">
+            {{ emi.status }}
+          </span>
+        </td>
+        <td>
+          <button
+  *ngIf="emi.status !== 'PAID'"
+  class="pay-btn"
+  (click)="payEmi(emi)"
+>
+  Pay Now
+</button>
+
+
+          <span *ngIf="emi.status === 'PAID'" class="paid-label">
+            Paid
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

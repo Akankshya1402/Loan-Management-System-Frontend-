@@ -1,0 +1,58 @@
+<div class="kyc-container">
+  <h2>KYC Verification</h2>
+  <p class="subtitle">Upload documents for verification</p>
+
+  <div class="kyc-card">
+
+    <!-- DOCUMENT TYPE -->
+    <div class="form-group">
+      <label>Document Type</label>
+      <select [(ngModel)]="selectedType">
+        <option value="">Select Document</option>
+        <option value="AADHAAR">Aadhaar</option>
+        <option value="PAN">PAN</option>
+        <option value="ADDRESS_PROOF">Address Proof</option>
+      </select>
+    </div>
+
+    <!-- DOCUMENT NUMBER -->
+    <div class="form-group">
+      <label>Document Number</label>
+      <input
+        type="text"
+        [(ngModel)]="documentNumber"
+        placeholder="Enter document number"
+      />
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="submitKyc()"
+      [disabled]="loading"
+    >
+      {{ loading ? 'Uploading...' : 'Upload KYC' }}
+    </button>
+
+    <p class="success" *ngIf="message">{{ message }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </div>
+
+  <!-- MY DOCUMENTS -->
+  <div class="kyc-list" *ngIf="documents.length">
+    <h3>My KYC Documents</h3>
+
+    <div class="kyc-item" *ngFor="let doc of documents">
+      <div>
+        <strong>{{ doc.type }}</strong>
+        <p>{{ doc.documentNumber }}</p>
+      </div>
+
+      <span
+        class="status"
+        [ngClass]="doc.status.toLowerCase()"
+      >
+        {{ doc.status }}
+      </span>
+    </div>
+  </div>
+</div>

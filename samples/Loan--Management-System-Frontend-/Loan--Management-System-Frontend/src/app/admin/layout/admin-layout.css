@@ -1,0 +1,163 @@
+/* ====== LAYOUT ====== */
+.layout {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+.brand{
+    padding-bottom: 40px;
+}
+
+/* ====== SIDEBAR ====== */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #0f172a, #020617);
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  color: #e5e7eb;
+}
+
+/* LOGO */
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 30px;
+  padding-left: 8px;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #cbd5f5;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+/* ACTIVE / HOVER */
+nav a.active {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+nav a:hover {
+  background: rgba(37, 99, 235, 0.15);
+  color: #ffffff;
+}
+
+/* LOGOUT (BOTTOM) */
+.sidebar .logout {
+  margin-top: auto;
+  padding: 14px 16px;
+  border-radius: 10px;
+  color: #fca5a5;
+  cursor: pointer;
+}
+
+.sidebar .logout:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ffffff;
+}
+
+/* ====== MAIN ====== */
+main {
+  flex: 1;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ====== TOP HEADER ====== */
+.topbar {
+  height: 70px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+}
+
+.welcome h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.welcome p {
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* ACTION ICONS */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon-btn {
+  background: #f1f5f9;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: #e2e8f0;
+}
+
+/* PROFILE AVATAR */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ====== CONTENT ====== */
+.content {
+  padding: 30px;
+  overflow-y: auto;
+}
+.kyc-link {
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  margin-top: 10px;
+}
+
+.kyc-link.active {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+}
+.role {
+  display: block;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: -4px;
+  letter-spacing: 1px;
+}

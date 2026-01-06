@@ -1,0 +1,34 @@
+<div class="page">
+
+  <!-- PAGE HEADER (OUTSIDE CARD) -->
+  <h2 class="page-title">Create Customer Profile</h2>
+
+  <!-- FORM CARD -->
+  <form [formGroup]="profileForm" (ngSubmit)="submit()" class="card">
+
+    <label>Full Name</label>
+    <input formControlName="fullName" />
+    <div *ngIf="profileForm.get('fullName')?.touched && profileForm.get('fullName')?.invalid">
+      Full name is required
+    </div>
+
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="profileForm.get('email')?.touched && profileForm.get('email')?.invalid">
+      Enter a valid email
+    </div>
+
+    <label>Mobile</label>
+    <input formControlName="mobile" />
+    <div *ngIf="profileForm.get('mobile')?.touched && profileForm.get('mobile')?.invalid">
+      Enter a valid 10-digit mobile number
+    </div>
+
+    <label>Monthly Income</label>
+    <input type="number" formControlName="monthlyIncome" />
+
+    <button type="submit">Create Profile</button>
+
+  </form>
+
+</div>

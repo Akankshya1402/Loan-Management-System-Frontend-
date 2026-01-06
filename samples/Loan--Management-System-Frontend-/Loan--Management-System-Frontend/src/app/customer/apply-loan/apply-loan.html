@@ -1,0 +1,49 @@
+<div class="loan-form">
+
+  <h2>Apply Loan</h2>
+  <p class="subtitle">Fill in your loan details</p>
+
+  <form [formGroup]="loanForm" (ngSubmit)="submit()">
+
+    <!-- Loan Type -->
+    <div class="form-group">
+      <label>Loan Type</label>
+      <select formControlName="loanType">
+        <option value="">Select</option>
+        <option *ngFor="let type of loanTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Loan Amount -->
+    <div class="form-group">
+      <label>Loan Amount</label>
+      <input type="number" formControlName="loanAmount" />
+    </div>
+
+    <!-- Tenure -->
+    <div class="form-group">
+      <label>Tenure (Months)</label>
+      <select formControlName="tenureMonths">
+        <option value="">Select</option>
+        <option *ngFor="let m of [12, 18, 24, 36]" [value]="m">
+          {{ m }}
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="!kycVerified">
+      Apply Loan
+    </button>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+    <p class="success" *ngIf="success">{{ success }}</p>
+
+    <p class="warning" *ngIf="!kycVerified">
+      ⚠ Complete KYC verification to apply for a loan
+    </p>
+
+  </form>
+
+</div>

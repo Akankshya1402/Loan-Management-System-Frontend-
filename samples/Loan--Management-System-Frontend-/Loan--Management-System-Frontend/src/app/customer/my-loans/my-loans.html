@@ -1,0 +1,38 @@
+<div class="section">
+
+  <h2>My Loans</h2>
+
+  <div *ngIf="loading" class="info">Loading your loans...</div>
+  <div *ngIf="!loading && error" class="error">{{ error }}</div>
+
+  <table *ngIf="!loading && loans.length">
+    <thead>
+      <tr>
+        <th>Loan Type</th>
+        <th>Amount</th>
+        <th>Tenure (Months)</th>
+        <th>Status</th>
+        <th>Applied On</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let loan of loans"
+          (click)="openLoan(loan)"
+          [class.active]="loan === selectedLoan">
+        <td>{{ getLoanTypeLabel(loan.loanType) }}</td>
+        <td>₹ {{ loan.principal | number:'1.0-0' }}</td>
+        <td>{{ loan.tenureMonths }}</td>
+        <td>{{ loan.status }}</td>
+        <td>{{ loan.disbursedAt | date:'mediumDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<!-- ✅ EMI DETAILS LOAD BELOW -->
+<app-loan-details
+  *ngIf="selectedLoan"
+  [loan]="selectedLoan">
+</app-loan-details>
