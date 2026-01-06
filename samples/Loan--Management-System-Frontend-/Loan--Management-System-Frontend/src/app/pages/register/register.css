@@ -3,30 +3,43 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-/* Center page */
+/* ===============================
+   PAGE BACKGROUND (MATCH LOGIN)
+================================ */
 :host {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f6f5f7;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(37,99,235,0.18), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(99,102,241,0.18), transparent 45%),
+    #020617;
 }
 
-/* MAIN CARD */
+/* ===============================
+   MAIN CARD
+================================ */
 .container {
   position: relative;
   width: 900px;
   max-width: 95%;
-  min-height: 480px;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  min-height: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(22px);
+  border-radius: 20px;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.12);
   overflow: hidden;
   display: flex;
   align-items: center;
+  color: #ffffff;
 }
 
-/* RIGHT PURPLE PANEL */
+/* ===============================
+   RIGHT BLUE PANEL (REPLACED PURPLE)
+================================ */
 .container::after {
   content: "";
   position: absolute;
@@ -34,11 +47,18 @@
   right: 0;
   width: 50%;
   height: 100%;
-  background: linear-gradient(to bottom right, #ff00cc, #333399);
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #3b82f6,
+    #6366f1
+  );
   z-index: 1;
 }
 
-/* TEXT ON PURPLE PANEL */
+/* ===============================
+   PANEL TEXT
+================================ */
 .container::before {
   content: "Enter your personal details to get started";
   position: absolute;
@@ -47,14 +67,16 @@
   transform: translate(50%, -50%);
   width: 260px;
   text-align: center;
-  color: #ffffff;
+  color: #e0e7ff;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.5;
   z-index: 2;
 }
 
-/* FORM */
+/* ===============================
+   FORM
+================================ */
 form {
   position: relative;
   z-index: 3;
@@ -66,73 +88,117 @@ form {
   text-align: center;
 }
 
-/* TITLE */
+/* ===============================
+   TITLE
+================================ */
 h1 {
   font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 25px;
+  font-weight: 900;
+  margin-bottom: 26px;
+  letter-spacing: -0.4px;
 }
 
-/* INPUTS */
+/* ===============================
+   INPUTS (MATCH LOGIN STYLE)
+================================ */
 input {
-  background: #fff9c4;
+  background: rgba(255, 255, 255, 0.95);
   border: none;
-  border-radius: 50px;
+  border-radius: 14px;
   padding: 14px 18px;
   margin: 10px 0;
   width: 100%;
   font-size: 14px;
+  transition: all 0.25s ease;
+}
+
+input::placeholder {
+  color: #6b7280;
 }
 
 input:focus {
   outline: none;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.45);
 }
 
-/* ERROR TEXT */
+/* ===============================
+   ERROR TEXT (SOFT RED)
+================================ */
 .error {
   font-size: 12px;
-  color: #e74c3c;
+  color: #fecaca;
   text-align: left;
-  padding-left: 12px;
-  margin-bottom: 5px;
+  padding-left: 8px;
+  margin-bottom: 6px;
 }
 
-/* BUTTON */
+/* ===============================
+   BUTTON (MATCH LOGIN)
+================================ */
 button {
   margin-top: 20px;
-  border-radius: 50px;
+  border-radius: 16px;
   border: none;
-  background: linear-gradient(to right, #ff00cc, #333399);
+  background: linear-gradient(135deg, #2563eb, #6366f1);
   color: #ffffff;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 15px;
   cursor: pointer;
-  transition: transform 0.15s ease-in-out;
+  letter-spacing: 0.4px;
+  transition: all 0.3s ease;
 }
 
-button:active {
-  transform: scale(0.96);
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(37,99,235,0.55);
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 button:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
-/* FOOTER TEXT */
+/* ===============================
+   FOOTER TEXT
+================================ */
 p {
-  margin-top: 20px;
+  margin-top: 22px;
   font-size: 14px;
+  color: #cbd5f5;
 }
 
 a {
-  color: #6a00ff;
-  font-weight: 600;
+  color: #93c5fd;
+  font-weight: 700;
   cursor: pointer;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .container::after,
+  .container::before {
+    display: none;
+  }
+
+  form {
+    width: 100%;
+    padding: 40px 28px;
+  }
 }

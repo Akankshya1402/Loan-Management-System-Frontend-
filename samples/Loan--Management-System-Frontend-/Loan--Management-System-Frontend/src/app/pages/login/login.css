@@ -1,153 +1,175 @@
-* {
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
-}
-
-/* Center page */
+/* ===============================
+   PAGE BACKGROUND (SOFT)
+================================ */
 :host {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #f6f5f7;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(99,102,241,0.22), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(37,99,235,0.22), transparent 45%),
+    linear-gradient(180deg, #020617, #020617);
+  font-family: "Segoe UI", sans-serif;
 }
 
-/* MAIN CARD */
+/* ===============================
+   LOGIN CARD (GLASS + SOFT)
+================================ */
 .container {
-  position: relative;
-  width: 900px;
-  max-width: 95%;
-  min-height: 480px;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-/* RIGHT PURPLE PANEL */
-.container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to bottom right, #ff00cc, #333399);
-  z-index: 1;
-}
-
-/* TEXT ON PURPLE PANEL */
-.container::before {
-  content: "Please enter your login details";
-  position: absolute;
-  top: 50%;
-  right: 25%;
-  transform: translate(50%, -50%);
-  width: 260px;
-  text-align: center;
+  width: 420px;
+  max-width: 92%;
+  padding: 44px 40px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(22px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   color: #ffffff;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.5;
-  z-index: 2;
+  animation: fadeUp 0.6s ease;
 }
 
-/* FORM */
-form {
-  position: relative;
-  z-index: 3;
-  width: 50%;
-  padding: 0 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+/* Soft entry */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* TITLE */
+/* ===============================
+   TITLE
+================================ */
 h1 {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 25px;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 900;
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
 }
 
-/* INPUTS */
+/* ===============================
+   INPUTS (SOFT & FRIENDLY)
+================================ */
 input {
-  background: #fff9c4;
-  border: none;
-  border-radius: 50px;
-  padding: 14px 18px;
-  margin: 10px 0;
   width: 100%;
+  padding: 15px 18px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  border: none;
   font-size: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  transition: all 0.25s ease;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+input:hover {
+  background: #ffffff;
 }
 
 input:focus {
   outline: none;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.45);
 }
 
-/* ERROR TEXT */
+/* ===============================
+   ERROR MESSAGES (SOFT RED)
+================================ */
 .error {
   font-size: 12px;
-  color: #e74c3c;
-  text-align: left;
-  padding-left: 12px;
-  margin-bottom: 5px;
+  color: #fecaca;
+  margin: -6px 0 12px;
+  padding-left: 6px;
 }
 
-/* BUTTON */
+/* ===============================
+   BUTTON (SOFT GLOW)
+================================ */
 button {
-  margin-top: 20px;
-  border-radius: 50px;
+  width: 100%;
+  margin-top: 14px;
+  padding: 15px;
+  border-radius: 16px;
   border: none;
-  background: linear-gradient(to right, #ff00cc, #333399);
+  background: linear-gradient(135deg, #2563eb, #6366f1);
   color: #ffffff;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
   cursor: pointer;
-  transition: transform 0.15s ease-in-out;
+  transition: all 0.35s ease;
 }
 
-button:active {
-  transform: scale(0.96);
+button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow:
+    0 18px 40px rgba(37, 99, 235, 0.55),
+    0 0 0 1px rgba(255,255,255,0.15);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 button:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
-/* FOOTER TEXT */
+/* ===============================
+   FOOTER TEXT
+================================ */
 p {
-  margin-top: 20px;
+  margin-top: 24px;
+  text-align: center;
   font-size: 14px;
+  color: #cbd5f5;
 }
 
-a {
-  color: #6a00ff;
-  font-weight: 600;
+p a {
+  color: #93c5fd;
+  font-weight: 700;
   cursor: pointer;
-  text-decoration: none;
 }
 
-a:hover {
+p a:hover {
   text-decoration: underline;
 }
-/* FORGOT PASSWORD */
-/* FORGOT PASSWORD - CENTERED */
-.forgot-link {
-  font-size: 13px;
-  margin: 15px 0 0;
-  text-align: center;
-  cursor: pointer;
-  color: #6a00ff;
-  display: block;
-}
 
+/* ===============================
+   FORGOT PASSWORD (SOFT)
+================================ */
+.forgot-link {
+  display: block;
+  margin-top: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: #bfdbfe;
+  cursor: pointer;
+}
 
 .forgot-link:hover {
   text-decoration: underline;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 480px) {
+  .container {
+    padding: 34px 26px;
+    border-radius: 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
 }
