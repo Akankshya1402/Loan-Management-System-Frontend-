@@ -2,35 +2,16 @@
 
   <h2>Repayments</h2>
 
-  <!-- LOADING -->
-  <div *ngIf="loading" class="info">
-    Loading EMI schedule...
-  </div>
-
-  <!-- ERROR -->
-  <div *ngIf="error" class="error">
-    {{ error }}
-  </div>
+  <div *ngIf="loading" class="info">Loading EMI schedule...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
 
   <!-- LOAN SUMMARY -->
   <div class="card" *ngIf="activeLoan">
     <h3>{{ activeLoan.loanType }} Loan</h3>
-
     <div class="grid">
-      <p>
-        <strong>Principal:</strong>
-        ₹ {{ activeLoan.principal | number:'1.0-0' }}
-      </p>
-
-      <p>
-        <strong>Tenure:</strong>
-        {{ activeLoan.tenureMonths }} months
-      </p>
-
-      <p>
-        <strong>Status:</strong>
-        {{ activeLoan.status }}
-      </p>
+      <p><strong>Principal:</strong> ₹ {{ activeLoan.principal | number:'1.0-0' }}</p>
+      <p><strong>Tenure:</strong> {{ activeLoan.tenureMonths }} months</p>
+      <p><strong>Status:</strong> {{ activeLoan.status }}</p>
     </div>
   </div>
 
@@ -48,57 +29,88 @@
 
     <tbody>
       <tr *ngFor="let emi of emis">
-
         <td>{{ emi.emiNumber }}</td>
-
         <td>{{ emi.dueDate | date:'mediumDate' }}</td>
+        <td>₹ {{ emi.emiAmount | number:'1.0-0' }}</td>
 
         <td>
-          ₹ {{ emi.emiAmount | number:'1.0-0' }}
-        </td>
-
-        <!-- STATUS -->
-        <td>
-          <span
-            class="status"
-            [ngClass]="emi.status.toLowerCase()"
-          >
+          <span class="status" [ngClass]="emi.status.toLowerCase()">
             {{ emi.status }}
           </span>
         </td>
 
-        <!-- ACTION -->
         <td>
-
-          <!-- ✅ ONLY NEXT UNPAID EMI -->
           <button
             *ngIf="canPayEmi(emi)"
             class="pay-btn"
-            (click)="payEmi(emi)"
-            
-          >
-            {{ payingEmiNumber === emi.emiNumber ? 'Paying...' : 'Pay Now' }}
+            (click)="openPaymentModal(emi)">
+            Pay Now
           </button>
 
-          <!-- ✅ PAID -->
-          <span
-            *ngIf="emi.status === 'PAID'"
-            class="paid-label"
-          >
-            Paid
-          </span>
-
-          <!-- ✅ FUTURE EMIs -->
-          <span
-            *ngIf="emi.status !== 'PAID' && !canPayEmi(emi)"
-            class="info"
-          >
-            —
-          </span>
-
+          <span *ngIf="emi.status === 'PAID'" class="paid-label">Paid</span>
+          <span *ngIf="emi.status !== 'PAID' && !canPayEmi(emi)" class="info">—</span>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
 
+<!-- PAYMENT MODAL -->
+<div class="payment-overlay" *ngIf="showPaymentModal">
+  <div class="payment-modal">
+
+    <h3>Complete Payment</h3>
+    <p class="amount">
+      Amount: ₹ {{ selectedEmi?.emiAmount | number:'1.0-0' }}
+    </p>
+
+    <!-- TABS -->
+    <div class="payment-tabs">
+      <button [class.active]="paymentMethod==='UPI'" (click)="setMethod('UPI')">UPI</button>
+      <button [class.active]="paymentMethod==='CARD'" (click)="setMethod('CARD')">Credit Card</button>
+      <button [class.active]="paymentMethod==='DEBIT'" (click)="setMethod('DEBIT')">Debit Card</button>
+    </div>
+
+    <form [formGroup]="paymentForm">
+
+      <!-- UPI -->
+      <div *ngIf="paymentMethod==='UPI'" class="payment-body">
+        <input formControlName="upiId" placeholder="example@upi">
+        <small *ngIf="paymentForm.get('upiId')?.touched && paymentForm.get('upiId')?.invalid">
+          Enter valid UPI ID (example@upi)
+        </small>
+      </div>
+
+      <!-- CARD / DEBIT -->
+      <div *ngIf="paymentMethod!=='UPI'" class="payment-body">
+        <input formControlName="cardNumber" placeholder="16-digit Card Number">
+        <small *ngIf="paymentForm.get('cardNumber')?.touched && paymentForm.get('cardNumber')?.invalid">
+          Card number must be 16 digits
+        </small>
+
+        <div class="row">
+          <input formControlName="expiry" placeholder="MM/YY">
+          <input formControlName="cvv" placeholder="CVV">
+        </div>
+
+        <small *ngIf="paymentForm.get('expiry')?.touched && paymentForm.get('expiry')?.invalid">
+          Expiry must be in MM/YY format
+        </small>
+
+        <small *ngIf="paymentForm.get('cvv')?.touched && paymentForm.get('cvv')?.invalid">
+          CVV must be 3 digits
+        </small>
+      </div>
+    </form>
+
+    <div class="payment-actions">
+      <button class="cancel" (click)="closePaymentModal()">Cancel</button>
+      <button
+        class="confirm"
+        [disabled]="paymentForm.invalid"
+        (click)="confirmPayment()">
+        Pay ₹ {{ selectedEmi?.emiAmount | number:'1.0-0' }}
+      </button>
+    </div>
+  </div>
 </div>

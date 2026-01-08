@@ -219,3 +219,104 @@ td:last-child {
     grid-template-columns: 1fr;
   }
 }
+/* ===============================
+   PAYMENT MODAL
+================================ */
+.payment-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.payment-modal {
+  width: 420px;
+  max-width: 92%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.payment-modal h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.amount {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 16px;
+}
+
+/* Tabs */
+.payment-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.payment-tabs button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 999px;
+  border: 1px solid #c7d2fe;
+  background: #f8fafc;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.payment-tabs button.active {
+  background: linear-gradient(135deg, #2563eb, #6366f1);
+  color: #fff;
+  border: none;
+}
+
+/* Inputs */
+.payment-body input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  margin-bottom: 12px;
+}
+
+.payment-body .row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Actions */
+.payment-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.payment-actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+}
+
+.payment-actions .cancel {
+  background: #e5e7eb;
+}
+
+.payment-actions .confirm {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+}

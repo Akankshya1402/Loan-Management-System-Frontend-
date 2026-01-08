@@ -33,53 +33,53 @@ export class LoginComponent {
         [
           Validators.required,
           Validators.minLength(4),
-          Validators.pattern('^[a-zA-Z0-9_]+$')
+          Validators.pattern(/^[a-zA-Z0-9_]+$/)
         ]
       ],
       password: [
         '',
         [
           Validators.required,
-          Validators.minLength(8)
+          Validators.minLength(8),
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$/
+          )
         ]
       ]
     });
   }
 
-handleLogin() {
-  if (this.loginForm.invalid) return;
+  handleLogin() {
+    if (this.loginForm.invalid) return;
 
-  this.authService.login(this.loginForm.value).subscribe({
-    next: (res) => {
-      this.authService.saveToken(res.token);
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        this.authService.saveToken(res.token);
 
-      const decoded = this.authService.getDecodedToken();
-      const roles: string[] = decoded?.roles || [];
+        const decoded = this.authService.getDecodedToken();
+        const roles: string[] = decoded?.roles || [];
 
-      // ✅ ADMIN LOGIN
-      if (roles.includes('ADMIN')) {
-        this.router.navigate(['/admin/dashboard']);
-        return;
-      }
+        // ADMIN
+        if (roles.includes('ADMIN')) {
+          this.router.navigate(['/admin/dashboard']);
+          return;
+        }
 
-      // ✅ CUSTOMER LOGIN
-      if (roles.includes('CUSTOMER')) {
-        this.profileService.getMyProfile().subscribe({
-          next: () => {
-            this.router.navigate(['/customer/dashboard']);
-          },
-          error: () => {
-            this.router.navigate(['/customer/profile/create']);
-          }
-        });
-      }
-    },
-    error: () => alert('Invalid credentials')
-  });
-}
-
-
-
+        // CUSTOMER
+        if (roles.includes('CUSTOMER')) {
+          this.profileService.getMyProfile().subscribe({
+            next: () => {
+              this.router.navigate(['/customer/dashboard']);
+            },
+            error: () => {
+              this.router.navigate(['/customer/profile/create']);
+            }
+          });
+        }
+      },
+      error: () => alert('Invalid username or password')
+    });
+  }
 
   goToRegister() {
     this.router.navigate(['/register']);

@@ -7,7 +7,7 @@
     <!-- DOCUMENT TYPE -->
     <div class="form-group">
       <label>Document Type</label>
-      <select [(ngModel)]="selectedType">
+      <select [(ngModel)]="selectedType" (change)="documentNumber=''">
         <option value="">Select Document</option>
         <option value="AADHAAR">Aadhaar</option>
         <option value="PAN">PAN</option>
@@ -16,19 +16,58 @@
     </div>
 
     <!-- DOCUMENT NUMBER -->
-    <div class="form-group">
+    <div class="form-group" *ngIf="selectedType">
       <label>Document Number</label>
+
       <input
         type="text"
         [(ngModel)]="documentNumber"
-        placeholder="Enter document number"
+        [placeholder]="
+          selectedType === 'AADHAAR'
+            ? '12-digit Aadhaar number'
+            : selectedType === 'PAN'
+            ? 'ABCDE1234F'
+            : 'Enter address proof number'
+        "
       />
+
+      <!-- AADHAAR VALIDATION -->
+      <p class="error"
+         *ngIf="selectedType === 'AADHAAR' &&
+                documentNumber &&
+                !/^[0-9]{12}$/.test(documentNumber)">
+        Aadhaar number must be exactly 12 digits
+      </p>
+
+      <!-- PAN VALIDATION -->
+      <p class="error"
+         *ngIf="selectedType === 'PAN' &&
+                documentNumber &&
+                !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(documentNumber)">
+        PAN must be in format: ABCDE1234F
+      </p>
+
+      <!-- ADDRESS PROOF VALIDATION -->
+      <p class="error"
+         *ngIf="selectedType === 'ADDRESS_PROOF' &&
+                documentNumber &&
+                documentNumber.length < 6">
+        Address proof number must be at least 6 characters
+      </p>
     </div>
 
+    <!-- SUBMIT -->
     <button
       class="btn-primary"
       (click)="submitKyc()"
-      [disabled]="loading"
+      [disabled]="
+        loading ||
+        !selectedType ||
+        !documentNumber ||
+        (selectedType === 'AADHAAR' && !/^[0-9]{12}$/.test(documentNumber)) ||
+        (selectedType === 'PAN' && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(documentNumber)) ||
+        (selectedType === 'ADDRESS_PROOF' && documentNumber.length < 6)
+      "
     >
       {{ loading ? 'Uploading...' : 'Upload KYC' }}
     </button>

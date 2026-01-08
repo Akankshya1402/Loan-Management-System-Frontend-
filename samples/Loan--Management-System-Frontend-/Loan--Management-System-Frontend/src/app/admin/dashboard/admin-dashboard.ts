@@ -31,13 +31,13 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     // FAKE DATA LOAD
     setTimeout(() => {
       this.dashboard = {
-        totalLoans: 1240,
-        approvedLoans: 820,
-        pendingLoans: 260,
-        rejectedLoans: 160,
-        totalDisbursedAmount: 78500000,
-        activeCustomers: 640,
-        totalEmiCollected: 18250000
+        totalLoans: 13,
+        approvedLoans: 8,
+        pendingLoans: 1,
+        rejectedLoans: 4,
+        totalDisbursedAmount: 12400000,
+        activeCustomers: 17,
+        totalEmiCollected: 273090
       };
 
       this.loading = false;

@@ -29,7 +29,10 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       email: [
         '',
-        [Validators.required, Validators.email]
+        [
+          Validators.required,
+          Validators.email
+        ]
       ],
       username: [
         '',
@@ -37,7 +40,7 @@ export class RegisterComponent {
           Validators.required,
           Validators.minLength(4),
           Validators.maxLength(20),
-          Validators.pattern('^[a-zA-Z0-9_]+$') // letters, numbers, underscore
+          Validators.pattern(/^[a-zA-Z0-9_]+$/)
         ]
       ],
       password: [
@@ -46,7 +49,7 @@ export class RegisterComponent {
           Validators.required,
           Validators.minLength(8),
           Validators.pattern(
-            '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$'
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/
           )
         ]
       ]
@@ -67,8 +70,7 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.error(err);
-        alert(err.error?.message || 'Registration failed');
+        alert(err?.error?.message || 'Registration failed');
         this.isSubmitting = false;
       }
     });

@@ -9,20 +9,26 @@
       formControlName="username"
       placeholder="Username"
     />
-    <div class="error"
-      *ngIf="loginForm.get('username')?.touched &&
-             loginForm.get('username')?.hasError('required')">
+
+    <div class="error" *ngIf="
+      loginForm.get('username')?.touched &&
+      loginForm.get('username')?.hasError('required')
+    ">
       Username is required
     </div>
-    <div class="error"
-      *ngIf="loginForm.get('username')?.touched &&
-             loginForm.get('username')?.hasError('minlength')">
-      Username must be at least 4 characters
+
+    <div class="error" *ngIf="
+      loginForm.get('username')?.touched &&
+      loginForm.get('username')?.hasError('minlength')
+    ">
+      Minimum 4 characters required
     </div>
-    <div class="error"
-      *ngIf="loginForm.get('username')?.touched &&
-             loginForm.get('username')?.hasError('pattern')">
-      Only letters, numbers, and underscore (_) are allowed
+
+    <div class="error" *ngIf="
+      loginForm.get('username')?.touched &&
+      loginForm.get('username')?.hasError('pattern')
+    ">
+      Only letters, numbers and underscore allowed
     </div>
 
     <!-- PASSWORD -->
@@ -31,18 +37,27 @@
       formControlName="password"
       placeholder="Password"
     />
-    <div class="error"
-      *ngIf="loginForm.get('password')?.touched &&
-             loginForm.get('password')?.hasError('required')">
+
+    <div class="error" *ngIf="
+      loginForm.get('password')?.touched &&
+      loginForm.get('password')?.hasError('required')
+    ">
       Password is required
     </div>
-    <div class="error"
-      *ngIf="loginForm.get('password')?.touched &&
-             loginForm.get('password')?.hasError('minlength')">
-      Password must be at least 8 characters
+
+    <div class="error" *ngIf="
+      loginForm.get('password')?.touched &&
+      loginForm.get('password')?.hasError('minlength')
+    ">
+      Minimum 8 characters required
     </div>
 
-    
+    <div class="error" *ngIf="
+      loginForm.get('password')?.touched &&
+      loginForm.get('password')?.hasError('pattern')
+    ">
+      Must contain uppercase, lowercase, number & special character
+    </div>
 
     <!-- SUBMIT -->
     <button type="submit" [disabled]="loginForm.invalid">
@@ -54,7 +69,7 @@
       Don't have an account?
       <a (click)="goToRegister()">Register</a>
     </p>
-    <!-- FORGOT PASSWORD -->
+
     <a class="forgot-link" (click)="goToForgotPassword()">
       Forgot your password?
     </a>
