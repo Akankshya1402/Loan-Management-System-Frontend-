@@ -27,9 +27,7 @@ export const routes: Routes = [
   // =======================
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-  // ✅ HOME PAGE
   { path: 'home', component: HomeComponent },
-
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -43,7 +41,7 @@ export const routes: Routes = [
   },
 
   // =======================
-  // CUSTOMER ROUTES (LAYOUT)
+  // CUSTOMER ROUTES
   // =======================
   {
     path: 'customer',
@@ -106,7 +104,7 @@ export const routes: Routes = [
   },
 
   // =======================
-  // ADMIN ROUTES (LAYOUT)
+  // ADMIN ROUTES
   // =======================
   {
     path: 'admin',
@@ -145,7 +143,13 @@ export const routes: Routes = [
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
-      }
+      },
+       {
+      path: 'interest-rates',
+      loadComponent: () =>
+        import('./admin/interest-rates/admin-interest-rates')
+          .then(m => m.AdminInterestRatesComponent)
+    },
     ]
   },
 

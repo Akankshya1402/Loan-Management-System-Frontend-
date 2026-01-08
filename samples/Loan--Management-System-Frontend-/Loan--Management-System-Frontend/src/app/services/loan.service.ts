@@ -76,4 +76,15 @@ export class LoanService {
       payload
     );
   }
+  getPaidEmisByLoan(loanId: string): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.PAYMENT_URL}/loan/${loanId}`
+    );
+  }
+  getActiveLoanByCustomer(customerId: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.PROCESSING_URL}/customer/${customerId}/active`
+    );
+  }
 }
+

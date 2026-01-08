@@ -37,6 +37,11 @@
       <span *ngIf="registerForm.get('username')?.hasError('pattern')">
         Only letters, numbers and underscore (_) allowed
       </span>
+
+      <!-- ✅ NEW -->
+      <span *ngIf="registerForm.get('username')?.hasError('usernameExists')">
+        Username already exists
+      </span>
     </div>
 
     <!-- PASSWORD -->

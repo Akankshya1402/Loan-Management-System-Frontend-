@@ -54,6 +54,13 @@ export class RegisterComponent {
         ]
       ]
     });
+
+    // ✅ Clear "username exists" error when user types again
+    this.registerForm.get('username')?.valueChanges.subscribe(() => {
+      if (this.registerForm.get('username')?.hasError('usernameExists')) {
+        this.registerForm.get('username')?.setErrors(null);
+      }
+    });
   }
 
   handleRegister() {
@@ -70,8 +77,21 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        alert(err?.error?.message || 'Registration failed');
         this.isSubmitting = false;
+
+        // ✅ Username already exists handling
+        if (
+          err.status === 409 &&
+          typeof err.error === 'string' &&
+          err.error.includes('Username')
+        ) {
+          this.registerForm.get('username')?.setErrors({
+            usernameExists: true
+          });
+          return;
+        }
+
+        alert(err?.error?.message || 'Registration failed');
       }
     });
   }

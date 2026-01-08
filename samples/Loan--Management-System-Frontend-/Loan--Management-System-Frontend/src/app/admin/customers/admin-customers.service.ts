@@ -11,7 +11,33 @@ export class AdminCustomersService {
 
   constructor(private http: HttpClient) {}
 
-  getAllCustomers(): Observable<any[]> {
-    return this.http.get<any[]>(this.BASE_URL);
+  getAllCustomers(): Observable<any> {
+    return this.http.get<any>(this.BASE_URL);
   }
+
+  deactivateCustomer(customerId: string): Observable<void> {
+    return this.http.put<void>(
+      `${this.BASE_URL}/${customerId}/deactivate`,
+      {}
+    );
+  }
+
+  activateCustomer(customerId: string): Observable<void> {
+    return this.http.put<void>(
+      `${this.BASE_URL}/${customerId}/activate`,
+      {}
+    );
+  }
+
+  deleteCustomer(customerId: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.BASE_URL}/${customerId}`
+    );
+  }
+  getCustomerById(customerId: string) {
+  return this.http.get<any>(
+    `${this.BASE_URL}/${customerId}`
+  );
+}
+
 }

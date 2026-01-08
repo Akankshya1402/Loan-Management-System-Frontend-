@@ -30,7 +30,18 @@ export class ForgotPasswordComponent {
     this.forgotForm = this.fb.group(
       {
         username: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(8)]],
+
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/
+            )
+          ]
+        ],
+
         confirmPassword: ['', Validators.required]
       },
       { validators: this.matchPasswords }
@@ -41,10 +52,12 @@ export class ForgotPasswordComponent {
     const p = form.get('password')?.value;
     const c = form.get('confirmPassword')?.value;
 
-    if (p !== c) {
+    if (p && c && p !== c) {
       form.get('confirmPassword')?.setErrors({ mismatch: true });
     } else {
-      form.get('confirmPassword')?.setErrors(null);
+      if (form.get('confirmPassword')?.hasError('mismatch')) {
+        form.get('confirmPassword')?.setErrors(null);
+      }
     }
   }
 
@@ -56,7 +69,6 @@ export class ForgotPasswordComponent {
 
     this.isSubmitting = true;
 
-    // 🔥 SEND ONLY WHAT BACKEND EXPECTS
     const payload = {
       username: this.forgotForm.value.username,
       newPassword: this.forgotForm.value.password
@@ -68,7 +80,7 @@ export class ForgotPasswordComponent {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        alert(err.error?.message || 'Password reset failed');
+        alert(err?.error?.message || 'Password reset failed');
         this.isSubmitting = false;
       }
     });

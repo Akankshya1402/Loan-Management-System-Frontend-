@@ -28,6 +28,22 @@
   transform: translateY(-4px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
 }
+.invoice-btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.invoice-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
 
 .icon {
   width: 54px;

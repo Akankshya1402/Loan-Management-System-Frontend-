@@ -29,12 +29,21 @@
       </div>
 
       <div class="payment-right">
-        <span class="status success">{{ p.status }}</span>
-        <div class="txn">
-          <span>Txn Ref</span>
-          <small>{{ p.transactionRef }}</small>
-        </div>
-      </div>
+  <span class="status success">{{ p.status }}</span>
+
+  <div class="txn">
+    <span>Txn Ref</span>
+    <small>{{ p.transactionRef }}</small>
+  </div>
+
+  <!-- 🔽 DOWNLOAD INVOICE -->
+  <button
+    class="invoice-btn"
+    (click)="downloadInvoice(p.paymentId)">
+    📄 Download Invoice
+  </button>
+</div>
+
     </div>
 
   </div>

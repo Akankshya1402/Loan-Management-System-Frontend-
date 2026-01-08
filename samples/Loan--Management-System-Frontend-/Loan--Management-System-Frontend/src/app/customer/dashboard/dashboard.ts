@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
 import { LoanService } from '../../services/loan.service';
+import { RepaymentService } from '../../services/repayments.service';
+
 import { Loan } from '../../models/loan.model';
 import { EmiSchedule } from '../../models/emi.model';
-import { RepaymentService } from '../../services/repayments.service';
 
 @Component({
   selector: 'app-customer-dashboard',
@@ -19,18 +22,19 @@ export class DashboardComponent implements OnInit {
   payments: any[] = [];
   loadingPayments = true;
 
-  // ✅ loanId → loanType mapping
+  // loanId → loanType mapping
   loanTypeMap: { [loanId: string]: string } = {};
 
   constructor(
     private loanService: LoanService,
-    private repaymentService: RepaymentService
+    private repaymentService: RepaymentService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
 
     // ============================
-    // FETCH LOANS ONCE
+    // FETCH LOANS
     // ============================
     this.loanService.getMyActiveLoans().subscribe({
       next: (loans: Loan[]) => {
@@ -42,7 +46,7 @@ export class DashboardComponent implements OnInit {
           return;
         }
 
-        // ✅ Build loanId → loanType map
+        // Build loanId → loanType map
         loans.forEach(loan => {
           this.loanTypeMap[loan.loanId] = loan.loanType;
         });
@@ -50,7 +54,7 @@ export class DashboardComponent implements OnInit {
         const activeLoan = loans[0];
 
         // ============================
-        // EXISTING EMI / STATS LOGIC
+        // EMI STATS
         // ============================
         this.loanService.getEmiSchedule(activeLoan.loanId).subscribe({
           next: (emis: EmiSchedule[]) => {
@@ -108,4 +112,37 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  // ============================
+  // DOWNLOAD INVOICE PDF
+  // ============================
+  downloadInvoice(paymentId: string): void {
+  const url = `http://localhost:9090/api/invoices/payment/${paymentId}/pdf`;
+
+  this.http.get(url, {
+    responseType: 'blob',
+    observe: 'response'
+  }).subscribe({
+    next: (res) => {
+      const blob = res.body!;
+      console.log('Downloaded size:', blob.size); // MUST be > 5KB
+
+      const fileURL = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = fileURL;
+      a.download = `invoice-${paymentId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(fileURL);
+    },
+    error: (err) => {
+      console.error('Invoice download failed', err);
+      alert('Failed to download invoice');
+    }
+  });
+}
+
 }

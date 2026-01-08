@@ -56,21 +56,20 @@
       </p>
     </div>
 
-    <!-- SUBMIT -->
-    <button
-      class="btn-primary"
-      (click)="submitKyc()"
-      [disabled]="
-        loading ||
-        !selectedType ||
-        !documentNumber ||
-        (selectedType === 'AADHAAR' && !/^[0-9]{12}$/.test(documentNumber)) ||
-        (selectedType === 'PAN' && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(documentNumber)) ||
-        (selectedType === 'ADDRESS_PROOF' && documentNumber.length < 6)
-      "
-    >
-      {{ loading ? 'Uploading...' : 'Upload KYC' }}
-    </button>
+   <button
+  class="btn-primary"
+  (click)="submitKyc()"
+  [disabled]="
+    !selectedType ||
+    !documentNumber ||
+    (selectedType === 'AADHAAR' && !/^[0-9]{12}$/.test(documentNumber)) ||
+    (selectedType === 'PAN' && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(documentNumber)) ||
+    (selectedType === 'ADDRESS_PROOF' && documentNumber.length < 6)
+  "
+>
+  {{ loading ? 'Uploading...' : 'Upload KYC' }}
+</button>
+
 
     <p class="success" *ngIf="message">{{ message }}</p>
     <p class="error" *ngIf="error">{{ error }}</p>

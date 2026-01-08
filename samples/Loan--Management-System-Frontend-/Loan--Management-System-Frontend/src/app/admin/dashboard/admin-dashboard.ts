@@ -39,7 +39,6 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
         activeCustomers: 17,
         totalEmiCollected: 273090
       };
-
       this.loading = false;
       this.dataReady = true;
       this.tryRenderCharts();
