@@ -23,13 +23,20 @@
       <input
         type="number"
         step="0.1"
+        min="0.1"
         [(ngModel)]="interestRate"
         placeholder="e.g. 8.5"
       />
 
+      <!-- VALIDATION MESSAGE -->
+      <small class="error"
+        *ngIf="interestRate !== null && interestRate <= 0">
+        Interest rate must be greater than 0
+      </small>
+
       <button
         (click)="update()"
-        [disabled]="!selectedLoanType || interestRate === null">
+        [disabled]="!selectedLoanType || interestRate === null || interestRate <= 0">
         Update Rate
       </button>
     </div>

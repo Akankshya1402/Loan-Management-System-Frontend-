@@ -37,7 +37,12 @@ export class AdminInterestRatesComponent implements OnInit {
   }
 
   update() {
-    if (!this.selectedLoanType || this.interestRate === null) {
+    if (
+      !this.selectedLoanType ||
+      this.interestRate === null ||
+      this.interestRate <= 0
+    ) {
+      alert('Interest rate must be greater than 0');
       return;
     }
 
