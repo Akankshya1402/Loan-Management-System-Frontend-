@@ -210,6 +210,3 @@ ng test --watch=false --browsers=ChromeHeadless
 
 ---
 
-## License
-
-This project is developed for academic, learning, and portfolio demonstration purposes.
